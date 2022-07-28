@@ -20,6 +20,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/cloudwego/hertz/pkg/network/dialer"
+	"github.com/cloudwego/hertz/pkg/network/standard"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
@@ -33,6 +36,7 @@ type Test struct {
 
 func main() {
 	h := server.Default()
+	dialer.SetDialer(standard.NewDialer())
 	h.StaticFS("/", &app.FS{Root: "./", GenerateIndexPages: true})
 
 	h.GET("/ping", func(c context.Context, ctx *app.RequestContext) {

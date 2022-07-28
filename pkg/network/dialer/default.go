@@ -19,8 +19,13 @@
 
 package dialer
 
-import "github.com/cloudwego/hertz/pkg/network/netpoll"
+import (
+	"fmt"
+
+	"github.com/cloudwego/hertz/pkg/network/netpoll"
+)
 
 func init() {
 	defaultDialer = netpoll.NewDialer()
+	fmt.Printf("##### init dialer: %v\n", "netpoll")
 }

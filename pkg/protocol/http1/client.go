@@ -53,6 +53,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/cloudwego/hertz/pkg/common/hlog"
+
 	"github.com/cloudwego/hertz/internal/bytesconv"
 	"github.com/cloudwego/hertz/internal/bytestr"
 	"github.com/cloudwego/hertz/internal/nocopy"
@@ -851,6 +853,7 @@ func (c *HostClient) dialHostHard() (conn network.Conn, err error) {
 	for n > 0 {
 		addr := c.nextAddr()
 		tlsConfig := c.cachedTLSConfig(addr)
+		hlog.Warnf("c.IsTLS: %v   cachedTLSConfig: %v", c.IsTLS, tlsConfig)
 		conn, err = dialAddr(addr, c.Dial, c.DialDualStack, tlsConfig, timeout, c.ProxyURI, c.IsTLS)
 		if err == nil {
 			return conn, nil

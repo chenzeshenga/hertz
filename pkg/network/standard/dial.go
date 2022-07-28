@@ -21,6 +21,8 @@ import (
 	"net"
 	"time"
 
+	"github.com/cloudwego/hertz/pkg/common/hlog"
+
 	"github.com/cloudwego/hertz/pkg/network"
 )
 
@@ -29,6 +31,7 @@ type dialer struct{}
 func (d *dialer) DialConnection(n, address string, timeout time.Duration, tlsConfig *tls.Config) (conn network.Conn, err error) {
 	c, err := net.DialTimeout(n, address, timeout)
 	if tlsConfig != nil {
+		hlog.Warnf("standard dialer is enable. tlsConfig is not nil")
 		cTLS := tls.Client(c, tlsConfig)
 		conn = newTLSConn(cTLS, defaultMallocSize)
 		return

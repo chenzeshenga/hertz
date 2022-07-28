@@ -22,4 +22,5 @@ import (
 
 func init() {
 	defaultDialer = standard.NewDialer()
+	fmt.Printf("##### init dialer: %v\n", "standard")
 }
